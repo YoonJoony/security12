@@ -2,6 +2,7 @@ package com.cos.security12.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
@@ -10,6 +11,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity // 스프링 시큐리티 필터가 스프링 필터 체인에 등록이 된다.
+@EnableMethodSecurity(securedEnabled = true, prePostEnabled = true) // secured... : 컨트롤러에 단일 권한 접속 허가
+                                                                    // prePost... : 컨트롤러에 다중 권한 접속 허가
 public class SecurityConfig {
     // 패스워드 인코딩(암호화)
     @Bean
