@@ -1,10 +1,12 @@
 package com.cos.security12.controller;
 
+import com.cos.security12.config.auth.PrincipalDetails;
 import com.cos.security12.model.User;
 import com.cos.security12.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ public class IndexController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    // 일반 로그인 한 사용자 정보 조회 방법
     @GetMapping({"","/"})
     public String index(){
         // 머스테치 기본폴더 src/main/resources/ 기본폴더
@@ -26,7 +29,8 @@ public class IndexController {
     }
 
     @GetMapping("/user")
-    public @ResponseBody String user() {
+    public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        System.out.println("사용자 정보 : " + principalDetails);
         return "user";
     }
 
